@@ -1,0 +1,133 @@
+﻿@page
+
+@model SetDefaultValuesTest.Pages.StartPageModel
+
+@using SetDefaultValuesTest.Business;
+
+<style>
+    iframe {
+        width: 450px;
+        height: 300px;
+    }
+</style>
+
+<h1>@Model.CurrentContent.Heading</h1>
+
+@if (Request.Method.Equals("GET", StringComparison.OrdinalIgnoreCase))
+{
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Create" value="doCreate" />
+        <input type="submit" value="Create pages" />
+    </form>
+}
+else
+{
+    <table>
+        <tr>
+            <td>
+                <p>Initializer page</p>
+            </td>
+            <td>
+                <p>Initializer page with manually set values</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <iframe src="@Model.Init1Link"></iframe>
+            </td>
+            <td>
+                <iframe src="@Model.Init2Link"></iframe>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Properties in database:</p>
+                @if (Model.DbRows.Any(r => r.ContentId == Model.Init1Id))
+                {
+                    <ul>
+                        @foreach (Row row in Model.DbRows.Where(r => r.ContentId == Model.Init1Id))
+                        {
+                            <li>@row.PropertyName: @row.PropertyValue</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No stored property values</p>
+                }
+            </td>
+            <td>
+                <p>Properties in database:</p>
+                @if (Model.DbRows.Any(r => r.ContentId == Model.Init2Id))
+                {
+                    <ul>
+                        @foreach (Row row in Model.DbRows.Where(r => r.ContentId == Model.Init2Id))
+                        {
+                            <li>@row.PropertyName: @row.PropertyValue</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No stored property values</p>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td><hr /></td>
+            <td><hr /></td>
+        </tr>
+        <tr>
+            <td>
+                <p>Set default values page</p>
+            </td>
+            <td>
+                <p>Set default values page with manually set values</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <iframe src="@Model.Default1Link"></iframe>
+            </td>
+            <td>
+                <iframe src="@Model.Default2Link"></iframe>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Properties in database:</p>
+                @if (Model.DbRows.Any(r => r.ContentId == Model.Default1Id))
+                {
+                    <ul>
+                        @foreach (Row row in Model.DbRows.Where(r => r.ContentId == Model.Default1Id))
+                        {
+                            <li>@row.PropertyName: @row.PropertyValue</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No stored property values</p>
+                }
+            </td>
+            <td>
+                <p>Properties in database:</p>
+                @if (Model.DbRows.Any(r => r.ContentId == Model.Default2Id))
+                {
+                    <ul>
+                        @foreach (Row row in Model.DbRows.Where(r => r.ContentId == Model.Default2Id))
+                        {
+                            <li>@row.PropertyName: @row.PropertyValue</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No stored property values</p>
+                }
+            </td>
+        </tr>
+    </table>
+}

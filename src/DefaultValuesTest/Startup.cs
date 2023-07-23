@@ -3,6 +3,8 @@ using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
+using Microsoft.EntityFrameworkCore;
+using SetDefaultValuesTest.Business;
 
 namespace SetDefaultValuesTest;
 
@@ -43,9 +45,6 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapContent();
-        });
+        app.UseEndpoints(endpoints => endpoints.MapContent());
     }
 }
